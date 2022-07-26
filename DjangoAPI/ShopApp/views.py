@@ -29,6 +29,7 @@ def productAPI(request, id=0):
             return JsonResponse("Update successfully", safe=False)
     elif request.method=='DELETE':
         product=Products.objects.get(ProductID=id)
+        #if product is None:
         product.delete()
         return JsonResponse("Deleted successfully")
 
