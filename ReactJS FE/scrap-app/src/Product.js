@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
-import {AddProdModal} from './AddProductModal';
-import {EditProdModal} from './EditProductModal';
+import { AddProdModal } from './AddProductModal';
+import { EditProdModal } from './EditProductModal';
 
 import { Button, ButtonToolbar } from 'react-bootstrap';
 
@@ -9,7 +9,7 @@ export class Products extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { products: [], addProdShow:false, editProdShow:false }
+        this.state = { products: [], addProdShow: false, editProdShow: false }
     }
 
     refreshList() {
@@ -42,29 +42,31 @@ export class Products extends Component {
 
     render() {
         const { products, prodid, prodname, prodbrand } = this.state;
-        let addModalClose=()=>this.setState({addModalShow:false});
-        let editModalClose=()=>this.setState({editModalShow:false});
+        let addModalClose = () => this.setState({ addModalShow: false });
+        let editModalClose = () => this.setState({ editModalShow: false });
         return (
             <div>
                 <Table className="mt-4" striped bordered hover size="sm">
                     <thead>
                         <tr>
-                            <th>ProductID</th>
-                            <th>ProductName</th>
-                            <th>Options</th>
+                            <th>Product Name</th>
+                            <th>Product Brand</th>
+                            <th>Website</th>
+                            <th>Option</th>
                         </tr>
                     </thead>
                     <tbody>
                         {products.map(prod =>
-                            <tr key={prod.ProductID}>
+                            <tr key={prod.productID}>
                                 <td>{prod.ProductName}</td>
                                 <td>{prod.ProductBrand}</td>
+                                <td>{prod.ProductWeb}</td>
                                 <td>
                                     <ButtonToolbar>
                                         <Button className="mr-2" variant="info"
                                             onClick={() => this.setState({
                                                 editModalShow: true,
-                                                prodid: prod.ProductID, prodname: prod.ProductName, prodbrand:prod.ProductBrand
+                                                prodid: prod.ProductID, prodname: prod.ProductName, prodbrand: prod.ProductBrand
                                             })}>
                                             Edit
                                         </Button>
@@ -74,11 +76,11 @@ export class Products extends Component {
                                             Delete
                                         </Button>
                                         {
-                                        <EditProdModal show={this.state.editModalShow}
-                                             onHide={editModalClose}
-                                             prodid={prodid}
-                                             prodname={prodname}
-                                             prodbrand={prodbrand}/>  
+                                            <EditProdModal show={this.state.editModalShow}
+                                                onHide={editModalClose}
+                                                prodid={prodid}
+                                                prodname={prodname}
+                                                prodbrand={prodbrand} />
                                         }
                                     </ButtonToolbar>
 
@@ -90,11 +92,11 @@ export class Products extends Component {
                 </Table>
                 <ButtonToolbar>
                     <Button variant='primary'
-                    onClick={()=>this.setState({addModalShow:true})}>
-                    Add Product</Button>
+                        onClick={() => this.setState({ addModalShow: true })}>
+                        Add Product</Button>
 
                     <AddProdModal show={this.state.addModalShow}
-                    onHide={addModalClose}/>
+                        onHide={addModalClose} />
                 </ButtonToolbar>
             </div>
         )

@@ -6,3 +6,4 @@ class Products(models.Model):
     ProductID = models.AutoField(primary_key=True)
     ProductName = models.CharField(max_length=1000)
     ProductBrand = models.CharField(max_length=100)
+    ProductWeb = models.CharField(max_length=100, default='Shopee')

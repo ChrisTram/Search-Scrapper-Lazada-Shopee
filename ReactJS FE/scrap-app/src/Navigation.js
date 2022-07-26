@@ -8,8 +8,7 @@ export class Navigation extends Component {
         return (
             <Navbar bg="dark" variant="dark">
               <Nav className="me-auto">
-                <Nav.Link href="/products">Home</Nav.Link>
-                <Nav.Link href="#">Search</Nav.Link>
+                <Nav.Link href="/products">Products</Nav.Link>
               </Nav>
           </Navbar>
             

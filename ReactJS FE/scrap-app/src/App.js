@@ -1,24 +1,24 @@
 import './App.css';
 
-import {Home} from './Home';
-import {Products} from './Product';
-import {Navigation} from './Navigation';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { Home } from './Home';
+import { Products } from './Product';
+import { Navigation } from './Navigation';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <BrowserRouter>
-    <div className="container">
-     <h3 className="m-3 d-flex justify-content-center">
-       Scrap Shopee
-     </h3>
+      <div className="container">
+        <h3 className="m-3 d-flex justify-content-center">
+          Scrap Shopee
+        </h3>
 
-     <Navigation/>
-     <Routes>
-       <Route exact path='/' element={<Home/>} />
-       <Route path='/products'  element={<Products/>}/>
-      </Routes>
-    </div>
+        <Navigation />
+        <Routes>
+          <Route exact path='/' element={<Home />} />
+          <Route path='/products' element={<Products />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }

@@ -6,4 +6,5 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Products
         fields = ('ProductID',
                   'ProductName',
-                  'ProductBrand')
+                  'ProductBrand',
+                  'ProductWeb')

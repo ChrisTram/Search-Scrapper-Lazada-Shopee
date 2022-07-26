@@ -17,6 +17,7 @@ class Migration(migrations.Migration):
                 ('ProductID', models.AutoField(primary_key=True, serialize=False)),
                 ('ProductName', models.CharField(max_length=1000)),
                 ('ProductBrand', models.CharField(max_length=100)),
+                ('ProductWeb', models.CharField(max_length=100))
             ],
         ),
     ]
