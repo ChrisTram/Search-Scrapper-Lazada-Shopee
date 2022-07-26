@@ -4,12 +4,18 @@ import { AddProdModal } from './AddProductModal';
 import { EditProdModal } from './EditProductModal';
 
 import { Button, ButtonToolbar } from 'react-bootstrap';
+import { createSearchParams } from 'react-router-dom';
+import Chart from 'chart.js/auto';
+
 
 export class Products extends Component {
 
     constructor(props) {
         super(props);
         this.state = { products: [], addProdShow: false, editProdShow: false }
+        this.chartRef = React.createRef();
+
+
     }
 
     refreshList() {
@@ -20,12 +26,50 @@ export class Products extends Component {
             });
     }
 
+    createChar() {
+        const labels = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+          ];
+        
+          const data = {
+            labels: labels,
+            datasets: [{
+              label: 'My First dataset',
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderColor: 'rgb(255, 99, 132)',
+              data: [0, 10, 5, 2, 20, 30, 45],
+            }]
+          };
+        
+          const config = {
+            type: 'line',
+            data: data,
+            options: {}
+          };
+        
+          const ctx = this.chartRef.current.getContext('2d');        
+
+          if(this.myChart != null) this.myChart.destroy()
+
+        this.myChart = new Chart(
+            ctx,
+            config
+          );
+    }
+
     componentDidMount() {
+        this.createChar()
+        
         this.refreshList();
     }
 
     componentDidUpdate() {
-        this.refreshList();
+        //this.refreshList();
     }
 
     deleteProduct(id) {
@@ -38,14 +82,19 @@ export class Products extends Component {
                 }
             })
         }
+        this.refreshList();
     }
 
     render() {
         const { products, prodid, prodname, prodbrand } = this.state;
-        let addModalClose = () => this.setState({ addModalShow: false });
-        let editModalClose = () => this.setState({ editModalShow: false });
+        let addModalClose = () => {this.setState({ addModalShow: false }); this.refreshList()};
+        let editModalClose = () => {this.setState({ editModalShow: false }); this.refreshList()};
+        
+
         return (
             <div>
+                <canvas ref={this.chartRef}/>
+
                 <Table className="mt-4" striped bordered hover size="sm">
                     <thead>
                         <tr>
