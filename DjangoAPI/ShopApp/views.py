@@ -22,7 +22,7 @@ def productAPI(request, id=0):
 
     elif request.method=='PUT':
         product_data = JSONParser().parse(request)
-        product=Products.objects.get(ProductId=product_data['ProductID'])
+        product=Products.objects.get(ProductID=product_data['ProductID'])
         products_serializer=ProductSerializer(product, data=product_data)
         if products_serializer.is_valid():
             products_serializer.save()
