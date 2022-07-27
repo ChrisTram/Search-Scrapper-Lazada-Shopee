@@ -7,7 +7,7 @@ from ShopApp.models import Products
 from ShopApp.serializers import ProductSerializer
 # Create your views here.
 
-def productAPI(request, id=0):
+def productAPI(request, id=0, new_request=0):
     if request.method=='GET':
         products = Products.objects.all()
         products_serializer = ProductSerializer(products, many=True)

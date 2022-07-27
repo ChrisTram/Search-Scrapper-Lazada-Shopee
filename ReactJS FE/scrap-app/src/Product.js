@@ -14,8 +14,7 @@ export class Products extends Component {
         super(props);
         this.state = { products: [], addProdShow: false, editProdShow: false }
         this.chartRef = React.createRef();
-
-
+        [this.dataShopee, this.dataLazada, this.brands] = [[], [], []];
     }
 
     refreshList() {
@@ -23,22 +22,50 @@ export class Products extends Component {
             .then(response => response.json())
             .then(data => {
                 this.setState({ products: data });
+                [this.dataShopee, this.dataLazada, this.brands] = this.createData(data);
+                this.createChar(this.dataShopee, this.dataLazada, this.brands);
             });
+
     }
 
-    createChar() {
+    createData(data) { //Can be easily extend to support several shops, just did the most straightforward method
+        var productsShopee = [], productsLazada = [];
+        var dataShopee = [], dataLazada = [];
+        var brands = [];
+        console.log("create data")
+        data.forEach(prod => {
+            if (prod.ProductWeb == "Shopee") {
+                console.log(prod)
+                productsShopee.push(prod);
+            } else if (prod.ProductWeb == "Lazada") {
+                productsLazada.push(prod);
+            } else { } //Parasit data
+            if (!brands.includes(prod.ProductBrand)) {
+                brands.push(prod.ProductBrand)
+            }
+        });
+        var n = productsShopee.length + productsLazada.length; //To be sure no parasit data 
+        brands.forEach(brand => {
+            dataShopee.push((Math.round(((productsShopee.filter (({ProductBrand}) => ProductBrand === brand).length) / n) * 100) * 100) / 100  )          
+            dataLazada.push((Math.round(((productsLazada.filter (({ProductBrand}) => ProductBrand === brand).length) / n) * 100) * 100) / 100  )          
+        });
+        return [dataShopee, dataLazada, brands];
+    }
 
+    createChar(dataShopee, dataLazada, brands) {
 
-          const ctx = this.chartRef.current.getContext('2d');        
+        console.log("createChar")
+        console.log(brands)
+        const ctx = this.chartRef.current.getContext('2d');
 
-          if(this.myChart != null) this.myChart.destroy()
-          this.myChart = new Chart(ctx, {
+        if (this.myChart != null) this.myChart.destroy()
+        this.myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Red', 'Purple', 'Yellow', 'Green', 'Blue', 'Orange'],
+                labels: brands,
                 datasets: [{
                     label: '% Shopee',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: dataShopee,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                     ],
@@ -49,7 +76,7 @@ export class Products extends Component {
                 },
                 {
                     label: '% Lazada',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: dataLazada,
                     backgroundColor: [
                         'rgba(153, 102, 255, 0.2)',
                     ],
@@ -64,18 +91,20 @@ export class Products extends Component {
                     y: {
                         beginAtZero: true
                     }
+                    
                 }
             }
-        })}
+        })
+    }
 
     componentDidMount() {
-        this.createChar()
-        
         this.refreshList();
+
     }
 
     componentDidUpdate() {
         //this.refreshList();
+
     }
 
     deleteProduct(id) {
@@ -93,13 +122,13 @@ export class Products extends Component {
 
     render() {
         const { products, prodid, prodname, prodbrand } = this.state;
-        let addModalClose = () => {this.setState({ addModalShow: false }); this.refreshList()};
-        let editModalClose = () => {this.setState({ editModalShow: false }); this.refreshList()};
-        
+        let addModalClose = () => { this.setState({ addModalShow: false }); this.refreshList() };
+        let editModalClose = () => { this.setState({ editModalShow: false }); this.refreshList() };
+
 
         return (
             <div>
-                <canvas ref={this.chartRef}/>
+                <canvas ref={this.chartRef} />
 
                 <Table className="mt-4" striped bordered hover size="sm">
                     <thead>
