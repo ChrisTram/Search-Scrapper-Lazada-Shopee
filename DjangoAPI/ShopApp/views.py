@@ -40,7 +40,7 @@ from django.shortcuts import render
 
 def searchProductsAPI(request, search =""):
     if request.method=='GET':
-        return defaultProducts(request)
+        return defaultProducts(search)
     #   return JsonResponse("API not implemented")
     
     
@@ -59,7 +59,11 @@ def defaultProducts(choice):
                    {'ProductName':"Sony Xperia Z", 'ProductBrand':"Sony", 'ProductWeb':"Lazada"},
                    {'ProductName':"Sony Xperia Play", 'ProductBrand':"Sony", 'ProductWeb':"Lazada"},
                    {'ProductName':"Sony Xperia Z", 'ProductBrand':"Sony", 'ProductWeb':"Shopee"},
-                   {'ProductName':"Sony999999", 'ProductBrand':"Sony", 'ProductWeb':"Lazada"},
+                   {'ProductName':"Sony Xperia Z", 'ProductBrand':"Sony", 'ProductWeb':"Lazada"},
+                   {'ProductName':"Iphone X Pro", 'ProductBrand':"Apple", 'ProductWeb':"Shopee"},
+                   {'ProductName':"Nokia Lumia 6", 'ProductBrand':"Nokia", 'ProductWeb':"Lazada"},
+                   {'ProductName':"Nokia Eclipse", 'ProductBrand':"Nokia", 'ProductWeb':"Lazada"},
+                   {'ProductName':"Iphone X Pro", 'ProductBrand':"Apple", 'ProductWeb':"Lazada"},
                    {'ProductName':"Iphone X Pro", 'ProductBrand':"Apple", 'ProductWeb':"Shopee"},
                    {'ProductName':"Iphone 9", 'ProductBrand':"Apple", 'ProductWeb':"Shopee"},
                    {'ProductName':"Samsung S21", 'ProductBrand':"Samsung", 'ProductWeb':"Lazada"},
@@ -108,6 +112,7 @@ def defaultProducts(choice):
         objects = [{'ProductName':"T-Shirt", 'ProductBrand':"Zara", 'ProductWeb':"Shopee"},
                    {'ProductName':"Polo", 'ProductBrand':"Zara", 'ProductWeb':"Lazada"},
                    {'ProductName':"Jean", 'ProductBrand':"LEVIS", 'ProductWeb':"Lazada"},
+                   {'ProductName':"Jean", 'ProductBrand':"LEVIS", 'ProductWeb':"Shopee"},
                    {'ProductName':"Hoodie", 'ProductBrand':"Adidas", 'ProductWeb':"Shopee"},
                    {'ProductName':"Shoes", 'ProductBrand':"Adidas", 'ProductWeb':"Lazada"},
                    {'ProductName':"Socks", 'ProductBrand':"Adidas", 'ProductWeb':"Shopee"},
@@ -124,6 +129,8 @@ def defaultProducts(choice):
                    {'ProductName':"Short", 'ProductBrand':"Nike", 'ProductWeb':"Lazada"},
                    {'ProductName':"Cap", 'ProductBrand':"Nike", 'ProductWeb':"Shopee"},
                    {'ProductName':"Polo", 'ProductBrand':"Hermès", 'ProductWeb':"Shopee"},
+                   {'ProductName':"Dress", 'ProductBrand':"Hermès", 'ProductWeb':"Lazada"},
+                   {'ProductName':"Polo", 'ProductBrand':"Hermès", 'ProductWeb':"Lazada"},
                    {'ProductName':"Polo", 'ProductBrand':"H&M", 'ProductWeb':"Lazada"},
                    {'ProductName':"Skirt", 'ProductBrand':"H&M", 'ProductWeb':"Lazada"},
                    {'ProductName':"Gloves", 'ProductBrand':"H&M", 'ProductWeb':"Shopee"},

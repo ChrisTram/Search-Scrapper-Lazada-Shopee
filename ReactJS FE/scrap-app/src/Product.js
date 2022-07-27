@@ -147,13 +147,21 @@ export class Products extends Component {
             <div>
                 <Form onSubmit={this.handleSearch}>
                     <Form.Group controlId="Search">
-                        <Form.Label>Search Products</Form.Label>
+                        <Form.Label>Search Products (perfumes / clothes / smartphones). Any other request will be random.</Form.Label>
                         <Form.Control type="text" name="Search" required
                             placeholder="Search" />
                     </Form.Group>
                     <Button variant="outline-primary" type="submit">Search</Button>
                 </Form>
                 <canvas ref={this.chartRef} />
+                <ButtonToolbar>
+                    <Button variant='primary'
+                        onClick={() => this.setState({ addModalShow: true })}>
+                        Add Product</Button>
+
+                    <AddProdModal show={this.state.addModalShow}
+                        onHide={addModalClose} />
+                </ButtonToolbar>
                 <Table className="mt-4" striped bordered hover size="sm">
                     <thead>
                         <tr>
@@ -198,14 +206,6 @@ export class Products extends Component {
                     </tbody>
 
                 </Table>
-                <ButtonToolbar>
-                    <Button variant='primary'
-                        onClick={() => this.setState({ addModalShow: true })}>
-                        Add Product</Button>
-
-                    <AddProdModal show={this.state.addModalShow}
-                        onHide={addModalClose} />
-                </ButtonToolbar>
             </div>
         )
     }
