@@ -59,7 +59,7 @@ export class Products extends Component {
     };
 
     requestResearch() {
-        fetch(process.env.REACT_APP_API + 'products/search/' + this.search)
+        fetch(process.env.REACT_APP_API + 'searchProducts/' + this.search)
         .then(response => response.json())
         .then(data => {
             this.setState({ products: data });
