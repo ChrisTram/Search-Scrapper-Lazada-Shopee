@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
 import { AddProdModal } from './AddProductModal';
 import { EditProdModal } from './EditProductModal';
-
+import Form from 'react-bootstrap/Form';
 import { Button, ButtonToolbar } from 'react-bootstrap';
 import { createSearchParams } from 'react-router-dom';
 import Chart from 'chart.js/auto';
@@ -15,6 +15,7 @@ export class Products extends Component {
         this.state = { products: [], addProdShow: false, editProdShow: false }
         this.chartRef = React.createRef();
         [this.dataShopee, this.dataLazada, this.brands] = [[], [], []];
+        this.search = "";
     }
 
     refreshList() {
@@ -25,7 +26,6 @@ export class Products extends Component {
                 [this.dataShopee, this.dataLazada, this.brands] = this.createData(data);
                 this.createChar(this.dataShopee, this.dataLazada, this.brands);
             });
-
     }
 
     createData(data) { //Can be easily extend to support several shops, just did the most straightforward method
@@ -35,7 +35,6 @@ export class Products extends Component {
         console.log("create data")
         data.forEach(prod => {
             if (prod.ProductWeb == "Shopee") {
-                console.log(prod)
                 productsShopee.push(prod);
             } else if (prod.ProductWeb == "Lazada") {
                 productsLazada.push(prod);
@@ -45,11 +44,28 @@ export class Products extends Component {
             }
         });
         var n = productsShopee.length + productsLazada.length; //To be sure no parasit data 
+        console.log(n)
         brands.forEach(brand => {
-            dataShopee.push((Math.round(((productsShopee.filter (({ProductBrand}) => ProductBrand === brand).length) / n) * 100) * 100) / 100  )          
-            dataLazada.push((Math.round(((productsLazada.filter (({ProductBrand}) => ProductBrand === brand).length) / n) * 100) * 100) / 100  )          
+            dataShopee.push((Math.round(((productsShopee.filter(({ ProductBrand }) => ProductBrand === brand).length) / n) * 100) * 100) / 100)
+            dataLazada.push((Math.round(((productsLazada.filter(({ ProductBrand }) => ProductBrand === brand).length) / n) * 100) * 100) / 100)
         });
         return [dataShopee, dataLazada, brands];
+    }
+
+    handleSearch = event => {
+        event.preventDefault();
+        this.search = event.target.Search.value.toLowerCase();
+        this.requestResearch();
+    };
+
+    requestResearch() {
+        fetch(process.env.REACT_APP_API + 'products/search/' + this.search)
+        .then(response => response.json())
+        .then(data => {
+            this.setState({ products: data });
+            [this.dataShopee, this.dataLazada, this.brands] = this.createData(data);
+            this.createChar(this.dataShopee, this.dataLazada, this.brands);
+        });
     }
 
     createChar(dataShopee, dataLazada, brands) {
@@ -91,7 +107,7 @@ export class Products extends Component {
                     y: {
                         beginAtZero: true
                     }
-                    
+
                 }
             }
         })
@@ -120,6 +136,7 @@ export class Products extends Component {
         this.refreshList();
     }
 
+
     render() {
         const { products, prodid, prodname, prodbrand } = this.state;
         let addModalClose = () => { this.setState({ addModalShow: false }); this.refreshList() };
@@ -128,8 +145,15 @@ export class Products extends Component {
 
         return (
             <div>
+                <Form onSubmit={this.handleSearch}>
+                    <Form.Group controlId="Search">
+                        <Form.Label>Search Products</Form.Label>
+                        <Form.Control type="text" name="Search" required
+                            placeholder="Search" />
+                    </Form.Group>
+                    <Button variant="outline-primary" type="submit">Search</Button>
+                </Form>
                 <canvas ref={this.chartRef} />
-
                 <Table className="mt-4" striped bordered hover size="sm">
                     <thead>
                         <tr>
