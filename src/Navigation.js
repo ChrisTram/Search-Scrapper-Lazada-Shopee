@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 
 export class Navigation extends Component {
@@ -8,7 +8,7 @@ export class Navigation extends Component {
         return (
             <Navbar bg="dark" variant="dark">
               <Nav className="me-auto">
-                <Nav.Link href="/products">Products</Nav.Link>
+                <Nav.Link as={Link} to="/products">Products</Nav.Link>
               </Nav>
           </Navbar>
             
