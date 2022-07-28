@@ -20,4 +20,5 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include('ShopApp.urls')),
+    url('.*', TemplateView.as_view(template_name='./index.html'))
 ]
