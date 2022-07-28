@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-(lwig3kp8!q!-@6w6+2oup&$0--45mbvnr91@@oz!f)(t7^ed%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1","localhost","localhost:8000","shopee-vs-lazada.herokuapp.com"]
+ALLOWED_HOSTS = ["127.0.0.1","localhost","localhost:8000","shopee-vs-lazada.herokuapp.com", "https://shopee-vs-lazada.herokuapp.com", "https://shopee-vs-lazada.herokuapp.com/products"]
 
 
 

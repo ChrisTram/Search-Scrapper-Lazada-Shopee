@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: node server.js
+web: gunicorn DjangoAPI.wsgi --log-file -
