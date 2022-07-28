@@ -9,7 +9,7 @@ export class EditProdModal extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch(process.env.REACT_APP_API + 'products/', {
+        fetch(process.env.REACT_APP_API + 'apiproducts/', {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',

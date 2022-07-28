@@ -19,7 +19,7 @@ export class Products extends Component {
     }
 
     refreshList() {
-        fetch(process.env.REACT_APP_API + 'products')
+        fetch(process.env.REACT_APP_API + 'apiproducts')
             .then(response => response.json())
             .then(data => {
                 this.setState({ products: data });

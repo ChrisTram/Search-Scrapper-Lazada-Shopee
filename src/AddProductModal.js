@@ -9,7 +9,7 @@ export class AddProdModal extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch(process.env.REACT_APP_API + 'products/', {
+        fetch(process.env.REACT_APP_API + 'apiproducts/', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
