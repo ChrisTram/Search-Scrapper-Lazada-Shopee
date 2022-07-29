@@ -33,7 +33,7 @@ def productAPI(request, id=0):
         product=Products.objects.get(ProductID=id)
         #if product is None:
         product.delete()
-        return JsonResponse("Deleted successfully")
+        return JsonResponse("Deleted successfully", safe=False)
 
 
 from django.shortcuts import render

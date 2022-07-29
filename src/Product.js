@@ -19,7 +19,7 @@ export class Products extends Component {
     }
 
     refreshList() {
-        fetch('apiproducts')
+        fetch('apiproducts/')
             .then(response => response.json())
             .then(data => {
                 this.setState({ products: data });
@@ -32,7 +32,6 @@ export class Products extends Component {
         var productsShopee = [], productsLazada = [];
         var dataShopee = [], dataLazada = [];
         var brands = [];
-        console.log("create data")
         data.forEach(prod => {
             if (prod.ProductWeb == "Shopee") {
                 productsShopee.push(prod);
@@ -60,18 +59,16 @@ export class Products extends Component {
 
     requestResearch() {
         fetch('searchProducts/' + this.search)
-        .then(response => response.json())
-        .then(data => {
-            this.setState({ products: data });
-            [this.dataShopee, this.dataLazada, this.brands] = this.createData(data);
-            this.createChar(this.dataShopee, this.dataLazada, this.brands);
-        });
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ products: data });
+                [this.dataShopee, this.dataLazada, this.brands] = this.createData(data);
+                this.createChar(this.dataShopee, this.dataLazada, this.brands);
+            });
     }
 
     createChar(dataShopee, dataLazada, brands) {
 
-        console.log("createChar")
-        console.log(brands)
         const ctx = this.chartRef.current.getContext('2d');
 
         if (this.myChart != null) this.myChart.destroy()
@@ -126,10 +123,14 @@ export class Products extends Component {
     deleteProduct(id) {
         if (window.confirm('Are you sure?')) {
             fetch('product/' + id, {
-                method: 'DELETE'
-            })
+                method: 'DELETE',
+                header: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(success => this.refreshList())
         }
-        this.refreshList();
+
     }
 
 
