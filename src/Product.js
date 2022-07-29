@@ -19,7 +19,7 @@ export class Products extends Component {
     }
 
     refreshList() {
-        fetch(process.env.REACT_APP_API + 'apiproducts')
+        fetch('apiproducts')
             .then(response => response.json())
             .then(data => {
                 this.setState({ products: data });
@@ -59,7 +59,7 @@ export class Products extends Component {
     };
 
     requestResearch() {
-        fetch(process.env.REACT_APP_API + 'searchProducts/' + this.search)
+        fetch('searchProducts/' + this.search)
         .then(response => response.json())
         .then(data => {
             this.setState({ products: data });
@@ -125,7 +125,7 @@ export class Products extends Component {
 
     deleteProduct(id) {
         if (window.confirm('Are you sure?')) {
-            fetch(process.env.REACT_APP_API + 'product/' + id, {
+            fetch('product/' + id, {
                 method: 'DELETE',
                 header: {
                     'Accept': 'application/json',
