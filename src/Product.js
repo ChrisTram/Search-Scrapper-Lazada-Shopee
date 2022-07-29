@@ -126,11 +126,7 @@ export class Products extends Component {
     deleteProduct(id) {
         if (window.confirm('Are you sure?')) {
             fetch('product/' + id, {
-                method: 'DELETE',
-                header: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
+                method: 'DELETE'
             })
         }
         this.refreshList();
