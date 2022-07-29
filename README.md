@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### `npm install`
 ### `npm start`
-### `pip install requirements'
+### `pip install requirements`
 ### `python manage.py runserver`
 
 Or use live version on : https://shopee-lazada-scrap.herokuapp.com/
